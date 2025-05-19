@@ -27,7 +27,7 @@
 
                 </Grid.ColumnDefinitions>
                 <DataGrid x:Name="dataGridProductos" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.ColumnSpan="4" Margin="-24,0,269,0"/>
-                <Button x:Name="bbnEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="6,163,0,0" VerticalAlignment="Top" Height="71" Width="138" Grid.ColumnSpan="3"/>
+                <Button x:Name="bbnEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="6,163,0,0" VerticalAlignment="Top" Height="71" Width="138" Grid.ColumnSpan="3" Click="bbnEliminar_Click"/>
                 <Button x:Name="btnAgregar" Grid.Column="3" Content="Agregar" HorizontalAlignment="Left" Margin="216,198,0,0" VerticalAlignment="Top"/>
             </Grid>
         </TabItem>
@@ -41,7 +41,7 @@
                     <ColumnDefinition Width="69*"/>
                     <ColumnDefinition Width="479*"/>
                 </Grid.ColumnDefinitions>
-                <ComboBox x:Name="ComboTipoBusqueda" HorizontalAlignment="Left" Margin="126,0,0,0" VerticalAlignment="Top" Width="516" Height="103" Grid.ColumnSpan="6"/>
+                <ComboBox x:Name="ComboTipoBusqueda" HorizontalAlignment="Left" Margin="126,0,0,0" VerticalAlignment="Top" Width="516" Height="103" Grid.ColumnSpan="6" SelectionChanged="ComboTipoBusqueda_SelectionChanged"/>
                 <Button x:Name="btnOrdenar" Content="Ordenar" HorizontalAlignment="Left" Margin="0,29,0,0" VerticalAlignment="Top" Height="85" Width="169" Grid.ColumnSpan="2"/>
                 <ListView x:Name="listViewOrdenados" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="56,108,198,105" Grid.Column="5">
                     <ListView.View>

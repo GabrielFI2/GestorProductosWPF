@@ -7,13 +7,13 @@
         mc:Ignorable="d"
         Title="AgregarProductoWindow" Height="450" Width="800">
     <Grid>
-        <TextBox x:Name="txtId" HorizontalAlignment="Left" Margin="59,10,0,0" TextWrapping="Wrap" Text="ID" VerticalAlignment="Top" Width="125" Height="74"/>
+        <TextBox x:Name="txtId" HorizontalAlignment="Left" Margin="59,10,0,0" TextWrapping="Wrap" Text="ID" VerticalAlignment="Top" Width="125" Height="74" TextChanged="txtId_TextChanged"/>
         <TextBox x:Name="txtNombre" HorizontalAlignment="Left" Margin="59,105,0,0" TextWrapping="Wrap" Text="Nombre" VerticalAlignment="Top" Width="204" Height="84"/>
         <TextBox x:Name="txtPrecio" HorizontalAlignment="Center" Margin="0,47,0,0" TextWrapping="Wrap" Text="Precio" VerticalAlignment="Top" Width="204" Height="84"/>
         <TextBox x:Name="txtStock" HorizontalAlignment="Left" Margin="309,0,0,0" TextWrapping="Wrap" Text="Stock" VerticalAlignment="Center" Width="204" Height="84"/>
         <TextBox x:Name="txtCodigoBar" HorizontalAlignment="Left" Margin="45,233,0,0" TextWrapping="Wrap" Text="Codigo de Barras" VerticalAlignment="Top" Width="204" Height="84"/>
         <TextBox x:Name="txtCat" HorizontalAlignment="Center" Margin="0,303,0,0" TextWrapping="Wrap" Text="Categoria" VerticalAlignment="Top" Width="204" Height="84"/>
-        <Button x:Name="btnGuardar" Content="Guardar" HorizontalAlignment="Left" Margin="574,142,0,0" VerticalAlignment="Top" Height="75" Width="92"/>
+        <Button x:Name="btnGuardar" Content="Guardar" HorizontalAlignment="Left" Margin="574,142,0,0" VerticalAlignment="Top" Height="75" Width="92" Click="btnGuardar_Click"/>
 
     </Grid>
 </Window>

@@ -69,10 +69,45 @@ namespace GestorProductosWPF
             });
 
         }
+        public void Buscar_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
         private void Agregar_Click(object sender, RoutedEventArgs e)
         {
 
         }
+
+        private void ComboTipoBusqueda_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string criterio = ComboTipoBusqueda.SelectedItem.ToString();
+            string valor = txtBusqueda.Text;
+
+            switch (criterio)
+            {
+                case "ID":
+                    if (int.TryParse(valor, out int id))
+                    {
+                        var }(Producto, iteranciones) = BusquedaSimplificada.BusquedaBinarioa(gestor, id);
+                    }
+                break;
+            }
+
+        private void bbnEliminar_Click(object sender, RoutedEventArgs e)
+        {
+            if(dataGridProductos.SelectedItems is Produto productoSeleccionado)
+            {
+                bool eliminado = gestor.
+            }
+        }
     }
-}
+    }
+    EventPrivateKey void
+
+TexBlock etiqueta = new
+}ly
+    private void btnAgregar_Click(object)
+    private ooflhlhlh
+
+    //que interfaces si vemos
+    //evaluacion 
