@@ -28,6 +28,12 @@ namespace GestorProductosWPF
             ComboTipoBusqueda.Items.Add("Codigo de Barras");
 
             ComboTipoBusqueda.SelectedIndex = 0;
+
+            comboTipoOrdenamiento.Items.Add("ID");
+            comboTipoOrdenamiento.Items.Add("Nombre");
+            comboTipoOrdenamiento.Items.Add("Precio");
+
+            comboTipoBúsqueda.SelectedIndex = 0;
         }
         private void CargarDatosIniciales()
         {
@@ -67,40 +73,136 @@ namespace GestorProductosWPF
                 Precio = 15,
                 Stock = 5
             });
-
-        }
-        public void Buscar_Click(object sender, RoutedEventArgs e)
+            private void btnBuscar_Click(object sender, RoutedEventArgs e)
         {
 
-        }
-        private void Agregar_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ComboTipoBusqueda_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            string criterio = ComboTipoBusqueda.SelectedItem.ToString();
+            string Criterio = comboTipoBúsqueda.SelectedItem.ToString();
             string valor = txtBusqueda.Text;
 
-            switch (criterio)
+
+            switch (Criterio)
             {
                 case "ID":
-                    if (int.TryParse(valor, out int id))
+                    if (int.TryParse(textboxBúsqueda.Text, out int id))
                     {
-                        var }(Producto, iteranciones) = BusquedaSimplificada.BusquedaBinarioa(gestor, id);
+                        var (producto, iteraciones) = BusquedaSimplificado.BusquedaBinaria(gestor.ObtenerListaProductos(), id);
+                        MostrarResultadoBusqueda(producto, iteraciones);
                     }
-                break;
+                    break;
+                case "Nombre":
+                    var (productoNombre, iteracionesNombre) = BusquedaSimplificado.BusquedaSecuencialNombre(gestor.ObtenerListaProductos(), valor);
+                    MostrarResultadoBusqueda(productoNombre, iteracionesNombre);
+                    break;
+                case "Código de barras":
+
+                    Producto productoCodigo = gestor.BuscarPorCodigo(valor);
+                    MostrarResultadoBusqueda(productoCodigo, 1);
+                    break;
             }
 
-        private void bbnEliminar_Click(object sender, RoutedEventArgs e)
+        }
+
+        private void MostrarResultadoBusqueda(Producto producto, int iteraciones)
         {
-            if(dataGridProductos.SelectedItems is Produto productoSeleccionado)
+            txtResultadoBusqueda.Text = producto.ToString() ?? "Producto no encontrado";
+            progressIteraciones.Value = iteraciones;
+        }
+
+        private void btnOrdenar_Click(object sender, RoutedEventArgs e)
+        {
+            List<Producto> productos = new List<Producto>(gestor.ObtenerListaProductos());
+            string Criterio = comboTipoOrdenamiento.SelectedItem.ToString();
+
+            switch (Criterio)
             {
-                bool eliminado = gestor.
+                case "ID":
+                    OrdenadorSimplificado.QuickSortId(productos);
+                    break;
+                case "Nombre":
+                    OrdenadorSimplificado.MergeSortPorNombre(productos);
+                    break;
+                case "Precio":
+                    OrdenadorSimplificado.QuickSortPorPrecio(productos);
+                    break;
+            }
+            ListViewOrdenados.ItemsSource = productos;
+            DibujarGraficoBarras(productos);
+        }
+
+        private void DibujarGraficoBarras(List<Producto> productos)
+        {
+            canvasGrafico.Children.Clear();
+            double maxPrecio = productos.Max(p => p.Precio);
+            double escala = CanvasGrafico.ActualHeight / maxPrecio;
+
+            for (int i = 0; i < productos.Count; i++)
+            {
+                Rectangle barra = new Rectangle
+                {
+                    Width = 30,
+                    Height = productos[i].Precio * escala,
+                    Fill = Brushes.Coral,
+                    Margin = new Thickness(i * 60, canvasGrafico.ActualHeight - (productos[i].Precio * escala), 0, 0)
+                };
+                canvasGrafico.Children.Add(barra);
+
+                TextBlock etiqueta = new TextBlock
+                {
+                    Text = productos[i].Nombre,
+                    Margin = new Thickness(i * 60, canvasGrafico.ActualHeight - 20, 0, 0)
+                };
+                canvasGrafico.children.Add(etiqueta);
+            }
+        }
+
+        private void btnAgregar_Click(object sender, RoutedEventArgs e)
+        {
+            var ventanaAgregar = new AgregarProductoWindow();
+            if (ventanaAgregar.ShowDialog() == true)
+            {
+                Producto nuevoProducto = ventanaAgregar.Producto;
+                try
+                {
+                    gestor.AgregarProducto(nuevoProducto);
+                    dataGridProductos.ItemsSource = null;
+                    dataGridProductos.ItemsSource = gestor.ObtenerListaProductos();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+
+        }
+
+
+        private void btnEliminar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        {
+            if(dataGridProductos.SelectedItems is Producto productoSeleccionado)
+            {
+                 bool eliminado = gestor.EliminarProducto(productoSeleccionado.CodigoBarras)
+                 if(eliminado)
+                 {
+                    dataGridProductos.ItemsSource = null;
+                    dataDridProductos.ItemsSource = gestor,ObtenerListaProductos();    
+                    MessageBox.Show("Producto eliminado." , "Exito", MessageBoxButton.OK, MessageBoxImage.Information);
+                 }
+                 else
+                {
+                   MessageBox.Show("Seleccione un producto." , "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                 }
+
+
+
             }
         }
     }
+/*
     }
     EventPrivateKey void
 
@@ -109,5 +211,21 @@ TexBlock etiqueta = new
     private void btnAgregar_Click(object)
     private ooflhlhlh
 
-    //que interfaces si vemos
-    //evaluacion 
+          //que interfaces si vemos
+          //evaluacion 
+
+          private void ComboTipoBusqueda_SelectionChanged(object sender, SelectionChangedEventArgs e)
+{
+    string criterio = ComboTipoBusqueda.SelectedItem.ToString();
+    string valor = txtBusqueda.Text;
+
+    switch (criterio)
+    {
+        case "ID":
+            if (int.TryParse(valor, out int id))
+            {
+                var }
+            (Producto, iteranciones) = BusquedaSimplificada.BusquedaBinarioa(gestor, id);
+    }
+    break;
+}*/
