@@ -5,71 +5,58 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GestorProductosWPF"
         mc:Ignorable="d"
-        Title="Gestor de Productos" Height="450" Width="800" Background="White">
-    
-    <TabControl>
-        <TabItem Header="Inventario">
-            <Grid Background="#FFE5E5E5">
-                <Grid.ColumnDefinitions>
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <TabControl>
+            <TabItem x:Name="Inventario" Header="Inventario">
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid x:Name="dataGridProductos" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+                    <Button x:Name="btnAgregar" Content="Agregar" HorizontalAlignment="Left" Margin="504,203,0,0" VerticalAlignment="Top" Height="67" Width="189" Click="btnAgregar_Click"/>
+                    <Button x:Name="btnEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="119,206,0,0" VerticalAlignment="Top" Height="60" Width="213" Click="btnEliminar_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="Búsqueda" Header="Búsqueda">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40*"/>
+                        <ColumnDefinition Width="9*"/>
+                        <ColumnDefinition Width="138*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="587*"/>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox x:Name="comboTipoBusqueda" HorizontalAlignment="Left" Margin="11,29,0,0" VerticalAlignment="Top" Width="574" Height="68" Grid.Column="2" Grid.ColumnSpan="4"/>
+                    <TextBox x:Name="txtBusqueda" HorizontalAlignment="Left" Margin="11,118,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="259" Height="44" Grid.Column="2" Grid.ColumnSpan="4"/>
+                    <Button x:Name="btnBuscar" Content="Buscar" HorizontalAlignment="Left" Margin="11,203,0,0" VerticalAlignment="Top" Height="57" Width="182" Click="btnBuscar_Click" Grid.Column="2" Grid.ColumnSpan="4"/>
+                    <TextBlock x:Name="txtResultadoBusqueda" HorizontalAlignment="Left" Margin="208,179,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="81" Width="307" Grid.Column="5"/>
+                    <ProgressBar x:Name="progressIteraciones" HorizontalAlignment="Left" Height="63" Margin="172,315,0,0" VerticalAlignment="Top" Width="368" Grid.Column="5"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="Ordenamiento" Header="Ordenamiento">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="18*"/>
+                        <ColumnDefinition Width="12*"/>
+                        <ColumnDefinition Width="61*"/>
+                        <ColumnDefinition Width="19*"/>
+                        <ColumnDefinition Width="58*"/>
+                        <ColumnDefinition Width="626*"/>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox x:Name="comboCriterioOrden" HorizontalAlignment="Left" Margin="57,28,0,0" VerticalAlignment="Top" Width="483" Height="84" Grid.ColumnSpan="4" Grid.Column="2"/>
+                    <Button x:Name="btnOrdenar" Content="Ordenar" HorizontalAlignment="Left" Margin="57,158,0,0" VerticalAlignment="Top" Height="45" Width="162" Click="btnOrdenar_Click" Grid.ColumnSpan="4" Grid.Column="2"/>
+                    <ListView x:Name="listViewOrdenados" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="139,158,32,99" Grid.Column="5">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Canvas x:Name="canvasGrafico" Margin="11,233,510,35" Grid.ColumnSpan="5" Grid.Column="1">
+                        <Rectangle Height="88" Canvas.Left="66" Stroke="Black" Canvas.Top="40" Width="62"/>
+                    </Canvas>
+                </Grid>
+            </TabItem>
+        </TabControl>
 
-
-
-
-
-                    <ColumnDefinition Width="27*"/>
-                    <ColumnDefinition Width="27*"/>
-                    <ColumnDefinition Width="137*"/>
-                    <ColumnDefinition Width="603*"/>
-
-
-
-
-
-                </Grid.ColumnDefinitions>
-                <DataGrid x:Name="dataGridProductos" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.ColumnSpan="4" Margin="-24,0,269,0"/>
-                <Button x:Name="bbnEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="6,163,0,0" VerticalAlignment="Top" Height="71" Width="138" Grid.ColumnSpan="3" Click="bbnEliminar_Click"/>
-                <Button x:Name="btnAgregar" Grid.Column="3" Content="Agregar" HorizontalAlignment="Left" Margin="216,198,0,0" VerticalAlignment="Top"/>
-            </Grid>
-        </TabItem>
-        <TabItem Header="Ordenamiento">
-            <Grid x:Name="CanvasGrfica" Background="#FFE5E5E5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="131*"/>
-                    <ColumnDefinition Width="51*"/>
-                    <ColumnDefinition Width="27*"/>
-                    <ColumnDefinition Width="37*"/>
-                    <ColumnDefinition Width="69*"/>
-                    <ColumnDefinition Width="479*"/>
-                </Grid.ColumnDefinitions>
-                <ComboBox x:Name="ComboTipoBusqueda" HorizontalAlignment="Left" Margin="126,0,0,0" VerticalAlignment="Top" Width="516" Height="103" Grid.ColumnSpan="6" SelectionChanged="ComboTipoBusqueda_SelectionChanged"/>
-                <Button x:Name="btnOrdenar" Content="Ordenar" HorizontalAlignment="Left" Margin="0,29,0,0" VerticalAlignment="Top" Height="85" Width="169" Grid.ColumnSpan="2"/>
-                <ListView x:Name="listViewOrdenados" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="56,108,198,105" Grid.Column="5">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-                <Canvas Margin="84,120,476,64" RenderTransformOrigin="0.506,0.291" Grid.ColumnSpan="6">
-                    <Rectangle Height="100" Canvas.Left="65" Stroke="#FFE80303" Canvas.Top="96" Width="100"/>
-                </Canvas>
-            </Grid>
-        </TabItem>
-        <TabItem Header="Busqueda"/>
-        <Grid Background="#FFE5E5E5">
-            <Grid.ColumnDefinitions>
-
-
-
-
-
-            </Grid.ColumnDefinitions>
-            <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Grid.ColumnSpan="2" Margin="-24,0,269,0"/>
-
-        </Grid>
-
-
-
-    </TabControl>
-
+    </Grid>
 </Window>
